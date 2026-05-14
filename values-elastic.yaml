@@ -1,0 +1,27 @@
+replicas: 1
+
+esJavaOpts: "-Xmx1g -Xms1g"
+
+clusterConfiguration:
+  bootstrap: false
+
+esConfig:
+  elasticsearch.yml: |
+    discovery.type: single-node
+    xpack.security.enabled: false
+    xpack.security.http.ssl.enabled: false
+    xpack.security.transport.ssl.enabled: false
+
+volumePermissions:
+  enabled: true
+
+podSecurityContext:
+  fsGroup: 1000c
+
+securityContext:
+  runAsUser: 1000
+
+persistence:
+  enabled: true
+  existing-claim: "elastic-pvc"
+  size: 5Gi

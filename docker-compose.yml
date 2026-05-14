@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  inventory:
+    image: python:3.9-slim
+    volumes:
+      - ./inventory.py:/app/inventory.py
+    working_dir: /app
+    command: bash -c "pip install fastapi uvicorn && uvicorn inventory:app --host 0.0.0.0 --port 8000"
+
+  payment:
+    image: python:3.9-slim
+    volumes:
+      - ./payment.py:/app/payment.py
+    working_dir: /app
+    command: bash -c "pip install fastapi uvicorn && uvicorn payment:app --host 0.0.0.0 --port 8000"
+
+  order:
+    image: python:3.9-slim
+    volumes:
+      - ./order.py:/app/order.py
+    working_dir: /app
+    command: bash -c "pip install requests && python order.py"
+    depends_on:
+      - inventory
+      - payment

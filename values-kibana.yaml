@@ -1,0 +1,16 @@
+elasticsearchHosts: "https://elasticsearch-master:9200"
+
+elasticsearchUsername: "elastic"
+elasticsearchPassword : "password"
+resources:
+  requests:
+    cpu: "100m"
+    memory: "512Mi"
+  limits:
+    cpu: "500m"
+    memory: "1Gi"
+
+kibanaConfig:
+  kibana.yml: |
+    server.host: "0.0.0.0"
+    elasticsearch.ssl.verificationMode: none

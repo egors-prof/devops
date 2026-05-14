@@ -1,0 +1,34 @@
+daemonset:
+  enabled: true
+  image: "docker.elastic.co/beats/filebeat"
+  imageTag: "8.5.1"
+
+filebeatConfig:
+  filebeat.yml: |
+    filebeat.inputs:
+    - type: container
+      paths:
+        - /var/log/containers/*.log
+      processors:
+        - add_kubernetes_metadata:
+            host: ${NODE_NAME}
+            matchers:
+            - logs_path:
+                logs_path: "/var/log/containers/"
+
+    output.elasticsearch:
+      hosts: ["https://elasticsearch-master:9200"]
+      protocol: "https"
+      username: "elastic"
+      password: "v7qhvN5iXQeWsK3O"
+      ssl.verification_mode: "none"
+
+      
+resources:
+  requests:
+    cpu: "100m"
+    memory: "100Mi"
+  limits:
+    cpu: "500m"
+    memory: "200Mi"
+

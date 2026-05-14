@@ -1,0 +1,4 @@
+name: order
+image: mock-services:v1
+command: ["python", "order.py"]
+createService: false
